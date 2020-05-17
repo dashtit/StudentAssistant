@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Text.RegularExpressions;
 
 namespace StudentAssistant
 {
@@ -17,9 +18,7 @@ namespace StudentAssistant
         {
             InitializeComponent();
         }
-        SqlConnection connection;
-        SqlCommand command;
-        SqlDataReader reader;
+      
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
@@ -27,92 +26,101 @@ namespace StudentAssistant
 
         private void SignUpDean_Load(object sender, EventArgs e)
         {
-            connection = new SqlConnection(@"Data Source=DESKTOP-R7UA68L;Initial Catalog=TimeManager;Integrated Security=True;MultipleActiveResultSets=True");
-            connection.Open();
-            connection.Close();
+         
         }
 
         private void OkDeanButoon_Click(object sender, EventArgs e)
         {
-            string _login = LoginDeantextBox.Text;
-            string _password = PasswordDeantextBox.Text;
-            string _name = NameDeantextBox.Text;
-            string _surname = SurnameDeantextBox.Text;
-            string _university = UniversityDeantextBox.Text;
-            string _faculty = FacultyDeantextBox.Text;
-            bool passwordFlag = false;
-            bool loginFlag = false;
-            bool existAccountFlag = false;
-            string sqlQuery2 = "select * from Dean";
-            connection.Open();
-            command = new SqlCommand(sqlQuery2, connection);
-            reader = command.ExecuteReader();
-
+            Connection connection = new Connection();
+            DataTable dataTable = new DataTable();
+            SqlDataAdapter dataAdapter = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand();
+            SqlCommand checkCommand = new SqlCommand();
+            SqlDataReader reader;
+            bool isDeanexist = false;
+            bool isDeanFacultyExist = false;
+            string SqlQuery = "select * from Dean where login = \'@log\' and password = \'@pass\';";
+            string pattern = @"[a-zA-Z0-9]";
+            string sqlQuery1 = "select * from Dean";
+            connection.OpenConnection();
+            checkCommand.CommandText = sqlQuery1;
+            checkCommand.Connection = connection.GetConnection();
+            reader = checkCommand.ExecuteReader();
             while (reader.Read())
             {
-                object logindean = reader["login"];
-                if (_login == logindean.ToString())
+                if (LoginDeantextBox.Text == reader["login"].ToString())
                 {
-                    existAccountFlag = true;
+                    isDeanexist = true;
+                    reader.Close();
                     break;
-                }
-                else
-                {
-                    existAccountFlag = false;
                 }
             }
             reader.Close();
-            if (!existAccountFlag)
+            reader = checkCommand.ExecuteReader();
+            while (reader.Read())
             {
-                for (int i = 0; i < _login.Length; i++)
+                if (UniversityDeantextBox.Text == reader["university"].ToString() && FacultyDeantextBox.Text == reader["faculty"].ToString())
                 {
-                    if (_login[i] != '.' && _login[i] != '!' && _login[i] != '?' && _login[i] != '@' && _login[i] != '%' && _login[i] != '^' && _login[i] != '*' && _login[i] != '$' && _login[i] != '№')
+                    isDeanFacultyExist = true;
+                    reader.Close();
+                    break;
+                }
+            }
+
+            command.CommandText = SqlQuery;
+            command.Connection = connection.GetConnection();
+            if (Regex.IsMatch(LoginDeantextBox.Text, pattern, RegexOptions.IgnoreCase))
+            {
+                if (PasswordDeantextBox.Text.Length > 5)
+                {
+                    command.Parameters.Add("@log", SqlDbType.VarChar).Value = LoginDeantextBox.Text;
+                    command.Parameters.Add("@pass", SqlDbType.VarChar).Value = PasswordDeantextBox.Text;
+                    command.Parameters.Add("@univer", SqlDbType.VarChar).Value = UniversityDeantextBox.Text;
+                    command.Parameters.Add("@fac", SqlDbType.VarChar).Value = FacultyDeantextBox.Text;
+                    command.Parameters.Add("@name", SqlDbType.VarChar).Value = NameDeantextBox.Text;
+                    command.Parameters.Add("@surname", SqlDbType.VarChar).Value = SurnameDeantextBox.Text;
+                    dataAdapter.SelectCommand = command;
+                    dataAdapter.Fill(dataTable);
+                    if (!isDeanexist)
                     {
-                        loginFlag = true;
+                        if (!isDeanFacultyExist)
+                        {
+                            if (dataTable.Rows.Count == 0)
+                            {
+                                string sqlQuery2 = "insert into Dean(login, password, name, surname, university, faculty) values(@log, @pass, @name, @surname, @univer, @fac);";
+
+                                command.Connection = connection.GetConnection();
+                                command.CommandText = sqlQuery2;
+                                command.ExecuteNonQuery();
+                                connection.CloseConnection();
+                                MessageBox.Show("Your account was signed up", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                this.Hide();
+                                DeanForm deanForm = new DeanForm();
+                                deanForm.Show();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("This faculty already has a Dean!", "Used faculty", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        loginFlag = false;
+                        MessageBox.Show("Dean with this login is already exist!", "Used login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     }
 
+
                 }
-                if (_password.Length < 5)
-                {
-                    passwordFlag = false;
-                }
+
                 else
                 {
-                    passwordFlag = true;
-                }
-
-                if (loginFlag == true)
-                {
-                    if (passwordFlag == true)
-                    {
-                        command = new SqlCommand();
-                        command.Connection = connection;
-                        command.CommandText = "insert into Dean(login, password, name, surname, university, faculty) values(\'" + _login + "\', \'" + _password + "\',\'"+ _name + "\', \'" + _surname + "\',\'" + _university + "\',\'" + _faculty + "\');";         
-                        command.ExecuteNonQuery();
-                        MessageBox.Show("Congratulations!\nYou was succesfully signed up!!!");
-                        connection.Close();
-
-                    }
-                    else
-                    {
-                        connection.Close();
-                        MessageBox.Show("Invalid password!\nPassword minimum length must be 5 symbols!");
-                    }
-                }
-                else
-                {
-                    connection.Close();
-                    MessageBox.Show("Invalid login!");
+                    MessageBox.Show("Password must be longer than 5 symbols!", "Invalid password", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                connection.Close();
-                MessageBox.Show("User with this login already exist!");
+                MessageBox.Show("Invalid login!", "Invalid login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

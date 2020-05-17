@@ -37,16 +37,17 @@
             // 
             this.DeanAccForm.AutoSize = true;
             this.DeanAccForm.Font = new System.Drawing.Font("Microsoft YaHei", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DeanAccForm.Location = new System.Drawing.Point(222, 57);
+            this.DeanAccForm.Location = new System.Drawing.Point(163, 65);
             this.DeanAccForm.Name = "DeanAccForm";
             this.DeanAccForm.Size = new System.Drawing.Size(214, 36);
             this.DeanAccForm.TabIndex = 0;
             this.DeanAccForm.Text = "Please, choose";
+            this.DeanAccForm.Click += new System.EventHandler(this.DeanAccForm_Click);
             // 
             // ShowStudentsButton
             // 
             this.ShowStudentsButton.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ShowStudentsButton.Location = new System.Drawing.Point(116, 159);
+            this.ShowStudentsButton.Location = new System.Drawing.Point(66, 159);
             this.ShowStudentsButton.Name = "ShowStudentsButton";
             this.ShowStudentsButton.Size = new System.Drawing.Size(136, 40);
             this.ShowStudentsButton.TabIndex = 1;
@@ -57,19 +58,20 @@
             // ShowSubjetcButton
             // 
             this.ShowSubjetcButton.Font = new System.Drawing.Font("Microsoft YaHei", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ShowSubjetcButton.Location = new System.Drawing.Point(368, 159);
+            this.ShowSubjetcButton.Location = new System.Drawing.Point(330, 159);
             this.ShowSubjetcButton.Name = "ShowSubjetcButton";
             this.ShowSubjetcButton.Size = new System.Drawing.Size(136, 40);
             this.ShowSubjetcButton.TabIndex = 4;
             this.ShowSubjetcButton.Text = "Show subjects";
             this.ShowSubjetcButton.UseVisualStyleBackColor = true;
+            this.ShowSubjetcButton.Click += new System.EventHandler(this.ShowSubjetcButton_Click);
             // 
             // DeanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.ClientSize = new System.Drawing.Size(648, 450);
+            this.ClientSize = new System.Drawing.Size(545, 327);
             this.Controls.Add(this.ShowSubjetcButton);
             this.Controls.Add(this.ShowStudentsButton);
             this.Controls.Add(this.DeanAccForm);

@@ -33,7 +33,7 @@
             this.choosefacultydeantextBox = new System.Windows.Forms.TextBox();
             this.showstudentsbutton = new System.Windows.Forms.Button();
             this.DeleteStudentButton = new System.Windows.Forms.Button();
-            this.SaveStudentsButton = new System.Windows.Forms.Button();
+            this.IDStudenttextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudents)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,22 +79,23 @@
             // DeleteStudentButton
             // 
             this.DeleteStudentButton.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DeleteStudentButton.Location = new System.Drawing.Point(178, 462);
+            this.DeleteStudentButton.Location = new System.Drawing.Point(474, 459);
             this.DeleteStudentButton.Name = "DeleteStudentButton";
             this.DeleteStudentButton.Size = new System.Drawing.Size(158, 29);
             this.DeleteStudentButton.TabIndex = 4;
             this.DeleteStudentButton.Text = "Delete a Student";
             this.DeleteStudentButton.UseVisualStyleBackColor = true;
+            this.DeleteStudentButton.Click += new System.EventHandler(this.DeleteStudentButton_Click);
             // 
-            // SaveStudentsButton
+            // IDStudenttextBox
             // 
-            this.SaveStudentsButton.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.SaveStudentsButton.Location = new System.Drawing.Point(464, 462);
-            this.SaveStudentsButton.Name = "SaveStudentsButton";
-            this.SaveStudentsButton.Size = new System.Drawing.Size(158, 29);
-            this.SaveStudentsButton.TabIndex = 5;
-            this.SaveStudentsButton.Text = "Save";
-            this.SaveStudentsButton.UseVisualStyleBackColor = true;
+            this.IDStudenttextBox.Font = new System.Drawing.Font("Microsoft YaHei", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.IDStudenttextBox.ForeColor = System.Drawing.Color.DimGray;
+            this.IDStudenttextBox.Location = new System.Drawing.Point(172, 459);
+            this.IDStudenttextBox.Name = "IDStudenttextBox";
+            this.IDStudenttextBox.Size = new System.Drawing.Size(158, 29);
+            this.IDStudenttextBox.TabIndex = 5;
+            this.IDStudenttextBox.Text = "ID";
             // 
             // ShowStudentsForm
             // 
@@ -102,7 +103,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonShadow;
             this.ClientSize = new System.Drawing.Size(800, 521);
-            this.Controls.Add(this.SaveStudentsButton);
+            this.Controls.Add(this.IDStudenttextBox);
             this.Controls.Add(this.DeleteStudentButton);
             this.Controls.Add(this.showstudentsbutton);
             this.Controls.Add(this.choosefacultydeantextBox);
@@ -124,6 +125,6 @@
         private System.Windows.Forms.TextBox choosefacultydeantextBox;
         private System.Windows.Forms.Button showstudentsbutton;
         private System.Windows.Forms.Button DeleteStudentButton;
-        private System.Windows.Forms.Button SaveStudentsButton;
+        private System.Windows.Forms.TextBox IDStudenttextBox;
     }
 }

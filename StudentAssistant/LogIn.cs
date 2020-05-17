@@ -18,35 +18,41 @@ namespace StudentAssistant
         {
             InitializeComponent();
         }
-        SqlConnection connection;
-        SqlCommand command;
-        SqlDataReader reader;
+      
         private void SignUpButton_Click(object sender, EventArgs e)
         {
             if (isDeancheckBox.Checked)
             {
                 SignUpDean signUpDean = new SignUpDean();
                 signUpDean.Show();
+                this.Hide();
             }
             else
             {
                 SignUpStudent signUpStudent = new SignUpStudent();
                 signUpStudent.Show();
+                this.Hide();
             }
         }
 
         private void LogInForm_Load(object sender, EventArgs e)
         {
-            connection = new SqlConnection(@"Data Source=DESKTOP-R7UA68L;Initial Catalog=TimeManager;Integrated Security=True;MultipleActiveResultSets=True");
-            connection.Open();
-            connection.Close();
+           
         }
 
         private void SignInDeanButton_Click(object sender, EventArgs e)
         {
             SignInDeanForn signInDean = new SignInDeanForn();
             signInDean.Show();
+            this.Hide();
            
+        }
+
+        private void SignInStudentButton_Click(object sender, EventArgs e)
+        {
+            SignInStudent signInStudent = new SignInStudent();
+            signInStudent.Show();
+            this.Hide();
         }
     }
 }

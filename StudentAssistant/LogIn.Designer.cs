@@ -54,6 +54,7 @@
             this.SignInStudentButton.TabIndex = 1;
             this.SignInStudentButton.Text = "Sign in as Student";
             this.SignInStudentButton.UseVisualStyleBackColor = true;
+            this.SignInStudentButton.Click += new System.EventHandler(this.SignInStudentButton_Click);
             // 
             // SignInDeanButton
             // 

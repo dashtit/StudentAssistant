@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connection.cs" />
     <Compile Include="DeanForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,11 +67,23 @@
     <Compile Include="ShowStudentsForm.Designer.cs">
       <DependentUpon>ShowStudentsForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ShowSubjectsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowSubjectsForm.Designer.cs">
+      <DependentUpon>ShowSubjectsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="SignInDean.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SignInDean.Designer.cs">
       <DependentUpon>SignInDean.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SignInStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SignInStudent.Designer.cs">
+      <DependentUpon>SignInStudent.cs</DependentUpon>
     </Compile>
     <Compile Include="SignUpDean.cs">
       <SubType>Form</SubType>
@@ -83,6 +96,12 @@
     </Compile>
     <Compile Include="SignUpStudent.Designer.cs">
       <DependentUpon>SignUpStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentForm.Designer.cs">
+      <DependentUpon>StudentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TimeManagerDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -107,14 +126,23 @@
     <EmbeddedResource Include="ShowStudentsForm.resx">
       <DependentUpon>ShowStudentsForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ShowSubjectsForm.resx">
+      <DependentUpon>ShowSubjectsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SignInDean.resx">
       <DependentUpon>SignInDean.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SignInStudent.resx">
+      <DependentUpon>SignInStudent.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpDean.resx">
       <DependentUpon>SignUpDean.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SignUpStudent.resx">
       <DependentUpon>SignUpStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentForm.resx">
+      <DependentUpon>StudentForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
