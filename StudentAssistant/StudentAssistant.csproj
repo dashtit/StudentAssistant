@@ -55,6 +55,7 @@
     <Compile Include="DeanForm.Designer.cs">
       <DependentUpon>DeanForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Hashing.cs" />
     <Compile Include="LogIn.cs">
       <SubType>Form</SubType>
     </Compile>

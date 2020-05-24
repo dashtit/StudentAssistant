@@ -26,7 +26,6 @@ namespace StudentAssistant
         private DeanForm deanForm;
         private Connection connection = Connection.GetInstance();
         private SqlCommand command = new SqlCommand();
-        private SqlDataReader reader;
 
         public Admin(DeanForm deanform, Dean dean)
         {
@@ -47,7 +46,7 @@ namespace StudentAssistant
         {
             SqlDataAdapter adapter;
             DataSet dataSet;
-            string sqlQuery = "select * from Subjects where university = \'" + dean.University + "\' and faculty = \'" + dean.Faculty + "\';";    
+            string sqlQuery = "select * from Subjects where university = \'" + dean.University + "\' and faculty = \'" + dean.Faculty + "\' order by course asc ;";    
             adapter = new SqlDataAdapter(sqlQuery, connection.GetConnection());
             dataSet = new DataSet();
             connection.OpenConnection();
@@ -60,7 +59,7 @@ namespace StudentAssistant
         {
             SqlDataAdapter adapter;
             DataSet dataSet;
-            string sqlQuery = "select * from Students where university = \'" + dean.University + "\' and faculty = \'" + dean.Faculty + "\';";
+            string sqlQuery = "select * from Students where university = \'" + dean.University + "\' and faculty = \'" + dean.Faculty + "\'order by course asc;";
             adapter = new SqlDataAdapter(sqlQuery, connection.GetConnection());
             dataSet = new DataSet();
             connection.OpenConnection();

@@ -18,7 +18,7 @@ namespace StudentAssistant
 
         private Connection connection = Connection.GetInstance();
         private SqlCommand command = new SqlCommand();
-        private string sqlQuery = "select * from Dean where login = @log and password = @pass;";
+        private string sqlQuery = "select * from Dean where login = @log;";
         private SqlDataReader reader;
 
         public Dean(SignInDeanForn signInDean)
@@ -73,6 +73,7 @@ namespace StudentAssistant
                 connection.CloseConnection();
                 return tempID;
             }
+            reader.Close();
             return 0;
         }
         public string GetUnivetsity()
@@ -89,6 +90,7 @@ namespace StudentAssistant
                 connection.CloseConnection();
                 return tempUniversity;
             }
+            reader.Close();
             return "";
         }
         public string GetFaculty()
@@ -105,6 +107,7 @@ namespace StudentAssistant
                 connection.CloseConnection();
                 return tempFaculty;
             }
+            reader.Close();
             return "";
         }
 

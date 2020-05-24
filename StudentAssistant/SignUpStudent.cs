@@ -26,7 +26,6 @@ namespace StudentAssistant
         {
             Application.Exit();
         }
-
         private void OkStudentButoon_Click(object sender, EventArgs e)
         {
             Connection connection = Connection.GetInstance();
@@ -59,8 +58,11 @@ namespace StudentAssistant
             {
                 if (PasswordStudenttextBox.Text.Length > 5)
                 {
+                    Hashing hashing = new Hashing(PasswordStudenttextBox.Text);
+
                     command.Parameters.Add("@log", SqlDbType.VarChar).Value = LoginStudenttextBox.Text;
-                    command.Parameters.Add("@pass", SqlDbType.VarChar).Value = PasswordStudenttextBox.Text;
+                    command.Parameters.Add("@pass", SqlDbType.VarChar).Value = hashing.Hash;
+                    command.Parameters.Add("@salt", SqlDbType.VarChar).Value = hashing.Salt;
                     command.Parameters.Add("@univer", SqlDbType.VarChar).Value = UniversityStudenttextBox.Text;
                     command.Parameters.Add("@fac", SqlDbType.VarChar).Value = FacultyStudenttextBox.Text;
                     command.Parameters.Add("@name", SqlDbType.VarChar).Value = NameStudentextBox.Text;
@@ -72,7 +74,7 @@ namespace StudentAssistant
                     {
                         if (dataTable.Rows.Count == 0)
                         {
-                            string sqlQuery2 = "insert into Students(login, password, name, surname, university, faculty, course) values(@log, @pass, @name, @surname, @univer, @fac, @course);";
+                            string sqlQuery2 = "insert into Students(login, name, surname, university, faculty, course, salt, password) values(@log, @name, @surname, @univer, @fac, @course, @salt, @pass);";
 
                             command.Connection = connection.GetConnection();
                             command.CommandText = sqlQuery2;

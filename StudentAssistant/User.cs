@@ -4,7 +4,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
@@ -30,7 +29,6 @@ namespace StudentAssistant
         private StudentForm studentForm;
         private Connection connection = Connection.GetInstance();
         private SqlCommand command = new SqlCommand();
-        private SqlDataReader reader;
 
         public User(StudentForm studentform, Student student)
         {

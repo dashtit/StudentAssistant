@@ -73,8 +73,10 @@ namespace StudentAssistant
             {
                 if (PasswordDeantextBox.Text.Length > 5)
                 {
+                    Hashing hashing = new Hashing(PasswordDeantextBox.Text);
                     command.Parameters.Add("@log", SqlDbType.VarChar).Value = LoginDeantextBox.Text;
-                    command.Parameters.Add("@pass", SqlDbType.VarChar).Value = PasswordDeantextBox.Text;
+                    command.Parameters.Add("@pass", SqlDbType.VarChar).Value = hashing.Hash;
+                    command.Parameters.Add("@salt", SqlDbType.VarChar).Value = hashing.Salt;
                     command.Parameters.Add("@univer", SqlDbType.VarChar).Value = UniversityDeantextBox.Text;
                     command.Parameters.Add("@fac", SqlDbType.VarChar).Value = FacultyDeantextBox.Text;
                     command.Parameters.Add("@name", SqlDbType.VarChar).Value = NameDeantextBox.Text;
@@ -87,7 +89,7 @@ namespace StudentAssistant
                         {
                             if (dataTable.Rows.Count == 0)
                             {
-                                string sqlQuery2 = "insert into Dean(login, password, name, surname, university, faculty) values(@log, @pass, @name, @surname, @univer, @fac);";
+                                string sqlQuery2 = "insert into Dean(login,  name, surname, university, faculty, salt, password) values(@log, @name, @surname, @univer, @fac, @salt, @pass);";
 
                                 command.Connection = connection.GetConnection();
                                 command.CommandText = sqlQuery2;

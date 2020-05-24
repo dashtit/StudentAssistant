@@ -35,17 +35,27 @@ namespace StudentAssistant
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlCommand command = new SqlCommand();
-            string sqlQuery = "select * from Students where login = @log and password = @pass;";
-
+            SqlDataReader reader;
+            string hash = "";
+            string salt = "";
+            string login = "";
+            string sqlQuery = "select login, password, salt from Students where login = @log;";
+            connect.OpenConnection();
             command.CommandText = sqlQuery;
             command.Connection = connect.GetConnection();
             command.Parameters.Add("@log", SqlDbType.VarChar).Value = SignInloginstudenttextBox.Text;
-            command.Parameters.Add("@pass", SqlDbType.VarChar).Value = SignInPasswordstudenttextBox.Text;
-
+            reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                login = Convert.ToString(reader["login"]);
+                hash = Convert.ToString(reader["password"]);
+                salt = Convert.ToString(reader["salt"]);
+            }
+            reader.Close();
             adapter.SelectCommand = command;
             adapter.Fill(table);
 
-            if (table.Rows.Count > 0)
+            if (login == SignInloginstudenttextBox.Text && Hashing.Verify(salt, hash, SignInPasswordstudenttextBox.Text))
             {
                 Student student = new Student(this);
                 StudentForm studentForm = new StudentForm();

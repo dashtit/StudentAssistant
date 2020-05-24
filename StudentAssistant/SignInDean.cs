@@ -41,17 +41,26 @@ namespace StudentAssistant
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlCommand command = new SqlCommand();
-            string sqlQuery = "select * from Dean where login = @log and password = @pass;";
-
+            SqlDataReader reader;
+            string login = "";
+            string hash = "";
+            string salt = "";
+            string sqlQuery = "select login, password, salt from Dean where login = @log;";
+            connect.OpenConnection();
             command.CommandText = sqlQuery;
             command.Connection = connect.GetConnection();
             command.Parameters.Add("@log", SqlDbType.VarChar).Value = SignInlogindeantextBox.Text;
-            command.Parameters.Add("@pass", SqlDbType.VarChar).Value = SignInPasswordDeantextBox.Text;
-
+            reader = command.ExecuteReader();
             adapter.SelectCommand = command;
-            adapter.Fill(table);
+            while (reader.Read())
+            {
+                login = Convert.ToString(reader["login"]);
+                hash = Convert.ToString(reader["password"]);
+                salt = Convert.ToString(reader["salt"]);
 
-            if (table.Rows.Count > 0)
+            }
+            reader.Close();
+            if (login == SignInlogindeantextBox.Text && Hashing.Verify(salt, hash, SignInPasswordDeantextBox.Text))
             {
                 
                 Dean dean = new Dean(this);
