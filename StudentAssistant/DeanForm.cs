@@ -13,6 +13,12 @@ namespace StudentAssistant
 {
     public partial class DeanForm : Form
     {
+
+        public Admin admin;
+        public void SetAdmin(Admin someAdmim)
+        {
+            admin = someAdmim;
+        }
         public DeanForm()
         {
             InitializeComponent();
@@ -20,13 +26,12 @@ namespace StudentAssistant
      
         private void DeanForm_Load(object sender, EventArgs e)
         {
-         
+            
         }
 
         private void ShowStudentsButton_Click(object sender, EventArgs e)
         {
-            ShowStudentsForm showStudentsForm = new ShowStudentsForm();
-            showStudentsForm.Show();
+            admin.ShowStudents();
         }
 
         private void DeanAccForm_Click(object sender, EventArgs e)
@@ -36,7 +41,41 @@ namespace StudentAssistant
 
         private void ShowSubjetcButton_Click(object sender, EventArgs e)
         {
+            admin.ShowSubjects();
+        }
 
+        internal void Show(Admin admin)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void SignInlogindeantextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddSubjectButton_Click(object sender, EventArgs e)
+        {
+            admin.AddSubject();
+        }
+
+        private void DeleteSubjectButton_Click(object sender, EventArgs e)
+        {
+            admin.DeleteSubject(); 
+        }
+
+        private void DeleteStudentButton_Click(object sender, EventArgs e)
+        {
+            admin.DeleteStudent();
+        }
+        private void DeanForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

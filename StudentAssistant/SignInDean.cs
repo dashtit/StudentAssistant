@@ -8,11 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Runtime.InteropServices;
 
 namespace StudentAssistant
 {
     public partial class SignInDeanForn : Form
     {
+
         public SignInDeanForn()
         {
             InitializeComponent();
@@ -27,12 +29,15 @@ namespace StudentAssistant
         {
       
         }
-
+        private void SugnInDean_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
         public string GetLogin() => SignInlogindeantextBox.Text;
         public string GetPassword() => SignInPasswordDeantextBox.Text;
         private void SignInDeanButton_Click(object sender, EventArgs e)
         {
-            Connection connect = new Connection();
+            Connection connect = Connection.GetInstance();
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlCommand command = new SqlCommand();
@@ -48,9 +53,13 @@ namespace StudentAssistant
 
             if (table.Rows.Count > 0)
             {
-                this.Hide();
+                
+                Dean dean = new Dean(this);
                 DeanForm deanForm = new DeanForm();
+                Admin admin = new Admin(deanForm, dean);
+                deanForm.SetAdmin(admin);
                 deanForm.Show();
+                this.Hide();
                 connect.CloseConnection();
             }
 

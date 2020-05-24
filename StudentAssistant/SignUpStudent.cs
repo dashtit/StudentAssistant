@@ -22,10 +22,14 @@ namespace StudentAssistant
         {
 
         }
+        private void SignUpStudent_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
 
         private void OkStudentButoon_Click(object sender, EventArgs e)
         {
-            Connection connection = new Connection();
+            Connection connection = Connection.GetInstance();
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             SqlCommand command = new SqlCommand();
@@ -34,7 +38,7 @@ namespace StudentAssistant
             bool isStudentExist = false;
             string sqlQuery1 = "select * from Students";
             string SqlQuery = "select * from Students where login = \'@log\' and password = \'@pass\';";
-            string pattern = "@[a-zA-Z0-9]";
+            string pattern = @"[a-zA-Z0-9]";
             connection.OpenConnection();
             checkCommand.CommandText = sqlQuery1;
             checkCommand.Connection = connection.GetConnection();
@@ -76,8 +80,8 @@ namespace StudentAssistant
                             connection.CloseConnection();
                             MessageBox.Show("Your account was signed up", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             this.Hide();
-                            DeanForm deanForm = new DeanForm();
-                            deanForm.Show();
+                            StudentForm studentForm = new StudentForm();
+                            studentForm.Show();
                         }
                     }
                     else
@@ -98,4 +102,5 @@ namespace StudentAssistant
             }
         }
     }
+
 }

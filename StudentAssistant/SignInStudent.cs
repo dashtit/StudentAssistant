@@ -23,10 +23,15 @@ namespace StudentAssistant
 
      
         }
-
+        private void SignInStudent_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
+        public string GetLogin() => SignInloginstudenttextBox.Text;
+        public string GetPassword() => SignInPasswordstudenttextBox.Text;
         private void SignInStudentButton_Click(object sender, EventArgs e)
         {
-            Connection connect = new Connection();
+            Connection connect = Connection.GetInstance();
             DataTable table = new DataTable();
             SqlDataAdapter adapter = new SqlDataAdapter();
             SqlCommand command = new SqlCommand();
@@ -42,7 +47,10 @@ namespace StudentAssistant
 
             if (table.Rows.Count > 0)
             {
+                Student student = new Student(this);
                 StudentForm studentForm = new StudentForm();
+                User user = new User(studentForm, student);
+                studentForm.SetUser(user);
                 studentForm.Show();
                 this.Hide();
 

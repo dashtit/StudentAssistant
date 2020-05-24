@@ -31,7 +31,7 @@ namespace StudentAssistant
 
         private void OkDeanButoon_Click(object sender, EventArgs e)
         {
-            Connection connection = new Connection();
+            Connection connection = Connection.GetInstance();
             DataTable dataTable = new DataTable();
             SqlDataAdapter dataAdapter = new SqlDataAdapter();
             SqlCommand command = new SqlCommand();
@@ -123,5 +123,10 @@ namespace StudentAssistant
                 MessageBox.Show("Invalid login!", "Invalid login", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void SignUpDean_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }
     }
+  
 }
